@@ -84,7 +84,7 @@ public class TokenAuthenticationService {
             final User user = tokenHandler.parseUserFromToken(tokenContent);
             if (user != null) {
                 // token does not exist in token manager
-                if(!authTokenManager.tokenExist(user.getUsername(), token)){
+                if(!authTokenManager.tokenExist(user.getUsername(), tokenContent)){
                     return null;
                 }
                 return new UserAuthentication(user);

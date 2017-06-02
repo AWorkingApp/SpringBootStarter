@@ -1,11 +1,9 @@
 package com.aworkingapp.sbstarter.auth.config;
 
-import com.aworkingapp.sbstarter.auth.AuthoritiesConstants;
 import com.aworkingapp.sbstarter.auth.Http401UnauthorizedEntryPoint;
 import com.aworkingapp.sbstarter.auth.service.TokenAuthenticationService;
 import com.aworkingapp.sbstarter.auth.service.UserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -13,14 +11,10 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
-import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
-import org.springframework.security.oauth2.config.annotation.web.configurers.ResourceServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.InMemoryTokenStore;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -63,23 +57,24 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             .and()
                 .authorizeRequests()
+                // admin
+                .antMatchers("/admin/**").hasRole("ADMIN")
+//                .antMatchers("/admin/me").hasRole("ADMIN")
+                .antMatchers("/api/user/me").hasRole("USER")
+
+                // all other request need to be authenticated
                 .antMatchers("/").permitAll()
                 .antMatchers("/**").permitAll()
-
-                .antMatchers("/api/**").permitAll()
-                .antMatchers("/favicon.ico").permitAll()
-                .antMatchers("/resources/**").permitAll()
-
+//
+//                .antMatchers("/api/**").permitAll()
+//                .antMatchers("/favicon.ico").permitAll()
+//                .antMatchers("/resources/**").permitAll()
+//
                 .antMatchers("/api/pub").permitAll()
 //
                 // anonymous for login url
                 .antMatchers(HttpMethod.POST, "/api/login").permitAll()
                 .antMatchers(HttpMethod.POST, "/api/register").permitAll()
-//
-                // admin
-                .antMatchers("/admin/**").hasAuthority(AuthoritiesConstants.ADMIN)
-
-                // all other request need to be authenticated
                 .anyRequest().authenticated()
             .and()
 //
@@ -88,6 +83,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
                 // custom Token based authentication based on the header previously given to the client
                 .addFilterBefore(new StatelessAuthenticationFilter(tokenAuthenticationService), UsernamePasswordAuthenticationFilter.class);
+
     }
 
     @Bean(name = "authenticationManagerBean")

@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/api/user")
-@PreAuthorize("hasAuthority('ROLE_USER')")
 public class UserResource {
 
    @Autowired
