@@ -1,10 +1,9 @@
 package com.aworkingapp.sbstarter.auth.service;
 
-import com.aworkingapp.sbstarter.auth.AuthProperties;
-import com.aworkingapp.sbstarter.auth.AuthTokenManager;
 import com.aworkingapp.sbstarter.auth.TokenHandler;
 import com.aworkingapp.sbstarter.auth.model.User;
 import com.aworkingapp.sbstarter.auth.model.UserAuthentication;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
@@ -60,7 +59,6 @@ public class TokenAuthenticationService {
 
         String result = "{\"header\":\""+AUTH_HEADER_NAME+"\",\"token\":\""+token+"\",\"type\": \""+BEARER.trim()+"\"}";
 
-        response.addHeader(AUTH_HEADER_NAME, token);
         response.setContentType("application/json");
         try {
             PrintWriter writer = response.getWriter();
@@ -75,7 +73,7 @@ public class TokenAuthenticationService {
         final String token = request.getHeader(AUTH_HEADER_NAME);
 
         // only accepts bearer token
-        if (!token.toLowerCase().startsWith(BEARER)){
+        if (StringUtils.isBlank(token) || !token.toLowerCase().startsWith(BEARER)){
             return null;
         }
 
@@ -85,7 +83,8 @@ public class TokenAuthenticationService {
         if (token != null) {
             final User user = tokenHandler.parseUserFromToken(tokenContent);
             if (user != null) {
-                if(!authTokenManager.tokenExist(user.getUsername(), tokenContent)){
+                // token does not exist in token manager
+                if(!authTokenManager.tokenExist(user.getUsername(), token)){
                     return null;
                 }
                 return new UserAuthentication(user);

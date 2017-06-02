@@ -1,4 +1,4 @@
-package com.aworkingapp.sbstarter.auth;
+package com.aworkingapp.sbstarter.auth.service;
 
 import org.springframework.stereotype.Service;
 

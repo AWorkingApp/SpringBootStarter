@@ -28,6 +28,7 @@ public class User implements UserDetails {
 
     private String username;
 
+    @JsonIgnore
     private String password;
 
     //user is never expired for now
@@ -39,15 +40,11 @@ public class User implements UserDetails {
 
     protected boolean accountEnabled;
 
+    @JsonIgnore
     private String newPassword;
 
-	@JsonIgnore
+//	@JsonIgnore
     private Set<UserAuthority> authorities;
-
-    /*
-    * how many communities user is following
-     */
-    private int followingCount;
 
     @Override
     public String getUsername() {
@@ -80,7 +77,6 @@ public class User implements UserDetails {
     }
 
     @Override
-    @JsonIgnore
     public Set<UserAuthority> getAuthorities() {
         return authorities;
     }

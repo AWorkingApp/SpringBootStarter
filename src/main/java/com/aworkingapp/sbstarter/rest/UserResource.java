@@ -12,28 +12,29 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * Created by chen on 5/31/17.
+ * Created by chen on 6/1/17.
  */
 @RestController
-@RequestMapping("/admin")
-@PreAuthorize("hasAuthority('ROLE_ADMIN')")
-public class AdminResource {
+@RequestMapping("/api/user")
+@PreAuthorize("hasAuthority('ROLE_USER')")
+public class UserResource {
 
-    @Autowired
-    UserRequestInfoService userRequestInfoService;
+   @Autowired
+   UserRequestInfoService userRequestInfoService;
 
-    @GetMapping("/me")
-    public ResponseEntity<User> me(){
-       User currUser = userRequestInfoService.getRequestUser();
+   @GetMapping("/me")
+   public ResponseEntity<User> me(){
+      User currUser = userRequestInfoService.getRequestUser();
 
-       for (UserRole role: currUser.getRoles()){
-           System.out.println(role);
-       }
+      for (UserRole role: currUser.getRoles()){
+         System.out.println(role);
+      }
 
-        for (UserAuthority authority: currUser.getAuthorities()){
-            System.out.println(authority);
-        }
+      for (UserAuthority authority: currUser.getAuthorities()){
+         System.out.println(authority);
+      }
 
-       return ResponseEntity.ok(currUser);
-    }
+      return ResponseEntity.ok(currUser);
+   }
+
 }

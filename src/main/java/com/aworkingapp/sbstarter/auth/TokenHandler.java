@@ -29,9 +29,11 @@ public class TokenHandler {
     public TokenHandler(byte[] secretKey, byte[] refreshSecrectKey) {
         try {
             this.hmac = Mac.getInstance(HMAC_ALGO);
-            this.hmacRefresh = Mac.getInstance(HMAC_ALGO);
             this.hmac.init(new SecretKeySpec(secretKey, HMAC_ALGO));
+
+            this.hmacRefresh = Mac.getInstance(HMAC_ALGO);
             this.hmacRefresh.init(new SecretKeySpec(refreshSecrectKey, HMAC_ALGO));
+
         } catch (NoSuchAlgorithmException | InvalidKeyException e) {
             throw new IllegalStateException("failed to initialize HMAC: " + e.getMessage(), e);
         }
