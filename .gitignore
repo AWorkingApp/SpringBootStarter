@@ -14,3 +14,4 @@ node
 .DS_Store
 .idea
 *.iml
+logs

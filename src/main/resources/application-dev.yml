@@ -1,5 +1,5 @@
 logging:
-    file: logs/dev_app.log
+    file: logs/dev_auth.log
 #    pattern:
 #      console: "%d %-5level %logger : %msg%n"
 #      file: "%d %-5level [%thread] %logger : %msg%n"
@@ -14,4 +14,4 @@ application:
         key: envifuarh38fiuvtenvifuarh38fiuvt
 
 server:
-    port: 8080
+    port: 8180
