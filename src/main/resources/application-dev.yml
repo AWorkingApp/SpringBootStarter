@@ -1,0 +1,17 @@
+logging:
+    file: logs/dev_app.log
+#    pattern:
+#      console: "%d %-5level %logger : %msg%n"
+#      file: "%d %-5level [%thread] %logger : %msg%n"
+
+
+application:
+    debug: true
+    mongo-properties:
+        uri: mongodb://45.55.73.160:27017
+        database: user
+    encryption-properties:
+        key: envifuarh38fiuvtenvifuarh38fiuvt
+
+server:
+    port: 8080

@@ -1,0 +1,13 @@
+logging:
+    file: /root/logs/prod_app.log
+
+application:
+    debug: false
+    mongo-properties:
+        uri: mongodb://138.197.39.196:27017
+        database: user
+    encryption-properties:
+          key: i2x$fu4r23hfiuvti2x$fu4r23hfiuvt
+
+server:
+    port: 3080

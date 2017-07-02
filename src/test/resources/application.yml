@@ -1,0 +1,7 @@
+application:
+    debug: false
+    mongo-properties:
+        uri: mongodb://45.55.73.160:27017
+        database: user
+    encryption-properties:
+          key: i2x$fu4r23hfiuvti2x$fu4r23hfiuvt
