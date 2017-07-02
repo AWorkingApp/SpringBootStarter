@@ -5,7 +5,6 @@ import com.aworkingapp.server.auth.model.RefreshToken;
 import com.aworkingapp.server.auth.model.User;
 import com.aworkingapp.server.auth.model.UserAuthentication;
 import com.aworkingapp.server.auth.model.UserInfoModel;
-import com.aworkingapp.server.rest.AccountResource;
 import com.aworkingapp.server.service.EncryptionService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.lang3.StringUtils;
